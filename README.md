@@ -1,55 +1,70 @@
+API de Inventário de Jogos
+Esta API foi desenvolvida em Python com o framework Flask para gerenciar um catálogo de jogos. O sistema utiliza SQLite3 para armazenamento local, facilitando a execução sem necessidade de configurações complexas de banco de dados.
 
-Documentação: API de Inventário de Jogos
-Criei esta API para gerenciar um catálogo de jogos usando Python com Flask. Para o armazenamento, escolhi o SQLite3 por ser prático e não precisar de configuração externa. O projeto já foi testado com títulos reais de Nintendo 3DS, DS e PC, cobrindo gêneros como simulação, corrida e moda.
+Estrutura do Banco de Dados
+Os dados são armazenados no arquivo inventario_jogos.db. A tabela principal contém os seguintes campos:
 
-Como o banco está estruturado
-Os dados ficam salvos no arquivo inventario_jogos.db. A tabela principal guarda o nome do jogo, a plataforma (console), o ano em que saiu e o preço de mercado. O ID é gerado automaticamente pelo sistema.
+ID: Gerado automaticamente.
 
-Passo a passo para rodar na sua máquina
-Primeiro, instale o Flask usando o terminal:
+Título: Nome do jogo.
+
+Plataforma: Console ou sistema (ex: Nintendo 3DS, PC).
+
+Ano de Lançamento: Ano em que o jogo saiu.
+
+Preço: Valor de mercado atual.
+
+Como Configurar e Rodar
+1. Instalação das dependências
+Abra o terminal e instale o Flask:
 
 Bash
 pip install flask
-Depois, prepare o banco de dados rodando o script inicial:
+2. Preparação do banco de dados
+Execute o script inicial para criar a tabela:
 
 Bash
 python3 init_db.py
-Por fim, coloque o servidor no ar:
+3. Inicialização do servidor
+Coloque a API no ar:
 
 Bash
 python3 app.py
-O endereço padrão será http://127.0.0.1:5000.
+O servidor estará disponível em: http://127.0.0.1:5000
 
-Testando as funções (Exemplos de cURL)
-Use os comandos abaixo no terminal para ver a API funcionando com os dados que já inseri:
+Guia de Uso (Comandos cURL)
+Use os comandos abaixo no terminal para interagir com a API.
 
-Para adicionar novos jogos:
-
-Bash
-# Exemplo de Jogo de Vestir
-curl -X POST http://127.0.0.1:5000/jogos -H "Content-Type: application/json" -d "{\"titulo\": \"Style Savvy: Styling Star\", \"plataforma\": \"Nintendo 3DS\", \"ano_lancamento\": 2017, \"preco\": 149.90}"
-
-# Exemplo de Jogo de Carro
-curl -X POST http://127.0.0.1:5000/jogos -H "Content-Type: application/json" -d "{\"titulo\": \"NFS Underground 2\", \"plataforma\": \"PC\", \"ano_lancamento\": 2004, \"preco\": 45.00}"
-Para listar e buscar:
+Adicionar novos jogos (POST)
+Exemplo: Jogo de Simulação/Moda
 
 Bash
-# Ver a lista inteira
+curl -X POST http://127.0.0.1:5000/jogos -H "Content-Type: application/json" -d '{"titulo": "Style Savvy: Styling Star", "plataforma": "Nintendo 3DS", "ano_lancamento": 2017, "preco": 149.90}'
+Exemplo: Jogo de Corrida
+
+Bash
+curl -X POST http://127.0.0.1:5000/jogos -H "Content-Type: application/json" -d '{"titulo": "NFS Underground 2", "plataforma": "PC", "ano_lancamento": 2004, "preco": 45.00}'
+Listar e Buscar (GET)
+Ver todos os jogos cadastrados:
+
+Bash
 curl http://127.0.0.1:5000/jogos
-
-# Ver apenas um jogo específico (ID 2)
-curl http://127.0.0.1:5000/jogos/2
-Para atualizar ou remover:
+Ver um jogo específico pelo ID (exemplo ID 2):
 
 Bash
-# Mudar dados de um jogo (ID 3)
-curl -X PUT http://127.0.0.1:5000/jogos/3 -H "Content-Type: application/json" -d "{\"titulo\": \"Nintendogs + Cats Edição Especial\", \"plataforma\": \"Nintendo 3DS\", \"ano_lancamento\": 2011, \"preco\": 95.00}"
+curl http://127.0.0.1:5000/jogos/2
+Atualizar e Remover (PUT/DELETE)
+Atualizar dados de um jogo (exemplo ID 3):
 
-# Deletar um jogo do sistema (ID 9)
+Bash
+curl -X PUT http://127.0.0.1:5000/jogos/3 -H "Content-Type: application/json" -d '{"titulo": "Nintendogs + Cats Edição Especial", "plataforma": "Nintendo 3DS", "ano_lancamento": 2011, "preco": 95.00}'
+Excluir um jogo do sistema (exemplo ID 9):
+
+Bash
 curl -X DELETE http://127.0.0.1:5000/jogos/9
-O que as respostas significam
-200/201: Tudo certo! O dado foi lido ou criado.
+Códigos de Resposta
+200/201 (Sucesso): A solicitação foi atendida com sucesso e o dado foi lido ou criado.
 
-204: A atualização funcionou (o servidor processou, mas não precisa devolver texto).
+204 (Sem Conteúdo): A atualização ou exclusão funcionou corretamente, mas não há texto para exibir.
 
-404: O ID que você buscou não existe no banco.
+404 (Não Encontrado): O ID informado não existe no banco de dados.
