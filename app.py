@@ -22,12 +22,14 @@ def executar_query(query, params=(), fetchone=False, fetchall=False, commit=Fals
     return resultado
 
 def criar_tabela():
+    # Adicionado campo preco REAL aqui
     executar_query('''
         CREATE TABLE IF NOT EXISTS jogos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             titulo TEXT NOT NULL,
             plataforma TEXT NOT NULL,
-            ano_lancamento INTEGER
+            ano_lancamento INTEGER,
+            preco REAL
         )
     ''', commit=True)
 
@@ -49,13 +51,15 @@ def criar_jogo():
     titulo = dados.get('titulo')
     plataforma = dados.get('plataforma')
     ano = dados.get('ano_lancamento')
+    preco = dados.get('preco') # Novo campo capturado
 
     if not titulo or not plataforma:
         return jsonify({"erro": "Título e Plataforma são obrigatórios"}), 400
 
+    # Adicionado preco no INSERT
     executar_query(
-        "INSERT INTO jogos (titulo, plataforma, ano_lancamento) VALUES (?, ?, ?)",
-        (titulo, plataforma, ano),
+        "INSERT INTO jogos (titulo, plataforma, ano_lancamento, preco) VALUES (?, ?, ?, ?)",
+        (titulo, plataforma, ano, preco),
         commit=True
     )
     return jsonify({"mensagem": "Jogo registrado com sucesso!"}), 201
@@ -68,9 +72,10 @@ def atualizar_jogo(id):
     if not existe:
         return jsonify({"erro": "Jogo não encontrado"}), 404
 
+
     executar_query(
-        "UPDATE jogos SET titulo = ?, plataforma = ?, ano_lancamento = ? WHERE id = ?",
-        (dados.get('titulo'), dados.get('plataforma'), dados.get('ano_lancamento'), id),
+        "UPDATE jogos SET titulo = ?, plataforma = ?, ano_lancamento = ?, preco = ? WHERE id = ?",
+        (dados.get('titulo'), dados.get('plataforma'), dados.get('ano_lancamento'), dados.get('preco'), id),
         commit=True
     )
     return '', 204
