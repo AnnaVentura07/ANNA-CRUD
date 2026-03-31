@@ -1,6 +1,3 @@
-Com certeza! Vamos deixar o texto com uma cara de que foi escrito por um desenvolvedor real, removendo as listas excessivas e os emojis de "robô". Vou focar em um tom mais direto, como se você estivesse explicando o projeto para um colega de trabalho ou professor.
-
-Aqui está a versão "mão na massa":
 
 Documentação: API de Inventário de Jogos
 Criei esta API para gerenciar um catálogo de jogos usando Python com Flask. Para o armazenamento, escolhi o SQLite3 por ser prático e não precisar de configuração externa. O projeto já foi testado com títulos reais de Nintendo 3DS, DS e PC, cobrindo gêneros como simulação, corrida e moda.
