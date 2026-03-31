@@ -8,12 +8,13 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             titulo TEXT NOT NULL,
             plataforma TEXT NOT NULL,
-            ano_lancamento INTEGER
+            ano_lancamento INTEGER,
+            preco REAL NOT NULL
         )
     ''')
     conn.commit()
     conn.close()
-    print("Banco 'inventario_jogos.db' inicializado com sucesso!")
+    print("Banco 'inventario_jogos.db' inicializado com sucesso com a coluna Preço!")
 
 if __name__ == '__main__':
     init_db()
