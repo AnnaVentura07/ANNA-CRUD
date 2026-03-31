@@ -54,3 +54,16 @@ Ver um jogo específico pelo ID:
 Bash
 curl http://127.0.0.1:5000/jogos/2
 
+---
+
+## Códigos de Resposta
+
+### 200/201 (Sucesso)
+A solicitação foi atendida com sucesso e o dado foi lido ou criado.
+
+### 204 (Sem Conteúdo)
+A atualização ou exclusão funcionou corretamente, mas o servidor não precisa devolver texto.
+
+### 404 (Não Encontrado)
+O ID que você buscou ou tentou alterar não existe no banco de dados.
+
