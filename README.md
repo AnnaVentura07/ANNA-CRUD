@@ -16,7 +16,7 @@ Os dados são armazenados no arquivo `inventario_jogos.db`. A tabela principal c
 
 ---
 
-## Como Configurar e Rodar
+## Como Configurar 
 
 ### 1. Instalação das dependências
 Abra o terminal e instale o Flask:
