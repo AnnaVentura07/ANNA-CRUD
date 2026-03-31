@@ -22,7 +22,6 @@ def executar_query(query, params=(), fetchone=False, fetchall=False, commit=Fals
     return resultado
 
 def criar_tabela():
-    # Adicionado campo preco REAL aqui
     executar_query('''
         CREATE TABLE IF NOT EXISTS jogos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -51,12 +50,12 @@ def criar_jogo():
     titulo = dados.get('titulo')
     plataforma = dados.get('plataforma')
     ano = dados.get('ano_lancamento')
-    preco = dados.get('preco') # Novo campo capturado
+    preco = dados.get('preco')
 
     if not titulo or not plataforma:
         return jsonify({"erro": "Título e Plataforma são obrigatórios"}), 400
 
-    # Adicionado preco no INSERT
+    
     executar_query(
         "INSERT INTO jogos (titulo, plataforma, ano_lancamento, preco) VALUES (?, ?, ?, ?)",
         (titulo, plataforma, ano, preco),
