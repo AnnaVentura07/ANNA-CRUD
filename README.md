@@ -16,7 +16,7 @@ Os dados são armazenados no arquivo `inventario_jogos.db`. A tabela principal c
 
 ---
 
-## Como Configurar e Rodar
+## Como rodar
 
 ### 1. Instalação das dependências
 Abra o terminal e instale o Flask:
@@ -53,3 +53,4 @@ Ver um jogo específico pelo ID:
 
 Bash
 curl http://127.0.0.1:5000/jogos/2
+
